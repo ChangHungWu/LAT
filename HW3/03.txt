@@ -1,0 +1,16 @@
+Artificial intelligence (AI) is a field of Computer Science and Engineering that focuses on creating intelligent machines that can perform tasks that normally require human-level intelligence, such as visual perception, speech recognition, decision-making, and language translation. AI systems can be divided into two main categories: narrow AI, which is designed to perform a specific task, and general AI, which can perform any intellectual task that a human can do.
+
+The history of AI dates back to the 1950s when researchers began exploring the possibility of creating machines that could simulate human intelligence. Early AI systems were based on rule-based systems, which used sets of predefined rules to make decisions. However, these systems were limited by their inflexibility and inability to learn from experience.
+
+In the 1980s, machine learning algorithms were developed, which enabled AI systems to learn from data and improve their performance over time. This led to the development of expert systems, which used knowledge-based reasoning to solve complex problems. However, these systems were still limited by their inability to deal with uncertainty and incomplete information.
+
+In the 1990s, artificial neural networks were developed, inspired by the human brain’s structure and function. These networks could learn from data and recognize patterns, making them useful for tasks such as image recognition and speech recognition.
+
+Today, AI is used in a wide range of applications, from self-driving cars and intelligent personal assistants to fraud detection and medical diagnosis. Deep learning algorithms, which use neural networks with many layers, have revolutionized AI in recent years, enabling machines to learn from vast amounts of data and achieve human-level performance in some tasks.
+
+
+However, AI also raises ethical and societal concerns, such as the potential loss of jobs due to automation, the impact on privacy and security, and the risk of bias and discrimination in AI systems. To address these concerns, it is important to develop AI systems that are transparent, accountable, and ethical, and to ensure that they are designed and used in ways that benefit society.
+
+Data Science is a term that combines math and statistics, specialized programming, advanced analytics, artificial intelligence (AI), and machine learning with specific subject matter expertise to uncover actionable insights hidden in an organization’s data. These insights can be used to guide decision-making and strategic planning. Data are analysed using appropriate tools and shown to the decision-makers in a suitable way which makes their job easy.
+
+Artificial intelligence and machine learning innovations have made data processing faster and more efficient. Industry demand has created an ecosystem of courses, degrees, and job positions within the field of data science. Because of the cross-functional skill set and expertise required, data science shows strong projected growth over the coming decades.
