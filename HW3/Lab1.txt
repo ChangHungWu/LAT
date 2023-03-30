@@ -1,0 +1,194 @@
+111’2 Electronics Laboratory (II)
+Lab 1: Introduction to Spice & Diode
+                                  組別:     2     學號: 41075029H   姓名: 吳長紘    
+
+1. 實驗目的: 
+a. 學習PSpice的程式碼撰寫，與實際操作
+b. 了解二極體組成原理與其直流操作特性
+
+2. 實驗原理: 
+a. 製作或檢測電路的步驟繁多且耗時，使用PSpice程式模擬來提高電路設計的方便性與效率。
+b. 兩種不同的半導體材料相結合就會有PN接面的產生，而構成所謂半導體二極體。然而在不同的直流偏壓、材料材質與溫度變化下。二極體就會有著不同的特性，依據這些特性就可以將其應用在不同電子電路中。
+
+3. 儀器與材料: 電腦、PSpice9.1版以上
+
+4. 實驗步驟:  PSpice練習
+Exercise 1: 
+請撰寫PSpice程式碼，繪出圖一，二極體(Is=0.01pA n=1.0675 Bv=6V Ibv=1nA)的I-V特性曲線。
+
+模擬:
+(1) 請用SPICE描述出此電路。
+* I-V Characteristics of a pn Diode*
+* Circuit Description *
+VD 1 0 DC 700mV
+*電壓源VD宣告 設正端為1 負端為0 輸入直流電壓700mV*
+* Diode Model Statement *
+D1 1 0 1mA_diode
+*二極體D1宣告 設正端為1 負端為0 二極體模型在0.7V時電流1mA*
+.model 1mA_diode D (Is=0.01pA n=1.0675 Bv=6V Ibv=1nA)
+*模型參數：飽和電流=0.01pA、理想因子=1.0675、逆向崩潰電壓=6V、逆向崩潰電流=1nA*
+* Analysis Description *
+.DC VD -6.6V 1V 0.1mV
+*掃描直流電壓源VD，從-6.6V到1V每0.1mV分析一次*
+* Output Description *
+.PLOT DC I (VD)
+*圖形輸出I對VD的關係圖*
+.probe
+*顯示波型*
+.end
+*結束程式*
+(2) 請用SPICE模擬其電路，繪出二極體的I-V特性曲線，並標出哪裡是順向偏壓區、逆向偏壓區、崩潰區。
+
+Exercise 2: 
+請撰寫PSpice程式碼，繪出圖二，金氧半電晶體NMOS(kp=20u Vto=1V lambda=0)的I-V特性曲線。
+
+模擬:
+(1) 請用SPICE描述出此電路。
+* Circuit Description *
+Vds 2 0 DC 10V
+*電壓源Vds宣告 設正端為2 負端為0 輸入直流電壓10V*
+Vgs 1 0 DC 4V
+*電壓源Vgs宣告 設正端為1 負端為0 輸入直流電壓4V*
+* MOSFET Model Statement *
+M1 2 1 0 0 NMOSFET L=10u W=400u
+*金養半電晶體M1宣告 設D為2 G為1 S為0 B為0 電晶體模型樣式 匣極長?=10u 匣極寬?=400u*
+.model NMOSFET nmos (kp=20u Vto=1V lambda=0)
+*模型參數:製程互導參數=20u、零偏壓臨界電壓=1V、通道長度調變效應=0*
+* Analysis Requests *
+.DC Vds 0V 10V 10mV Vgs 1V 5V 1V
+*掃描直流電壓源Vds從0V到10V每10mV分析一次；Vgs從1V到5V每1V分析一次*
+* Output Requests *
+.probe
+*顯示波型*
+.end
+*結束程式*
+(2) 請用SPICE模擬其電路，繪出NMOS的I-V特性曲線，並標出哪裡是飽和區、夾止區、三極區。
+
+
+Exercise 3: 
+請撰寫PSpice程式碼，繪出圖三，雙極接面電晶體NPN BJT (Is=1.8e-15 Bf=100 Vaf=35V)的I-V特性曲線。
+
+模擬:
+(1) 請用SPICE描述出此電路。
+* Circuit Description *
+Ib 0 2 DC 100mA
+*電壓源Ib宣告 設正端為0 負端為2 輸入直流電流100mA*
+Vce 1 0 DC 5V
+*電壓源Vce宣告 設正端為1 負端為0 輸入直流電壓5V*
+* BJT Model Statement *
+Q1 1 2 0 npn_transistor
+*雙極接面電晶體M1宣告 設C為1 B為2 E為0 電晶體模型樣式*
+.model npn_transistor npn(Is=1.8e-15 Bf=100 Vaf=35V)
+*模型參數：飽和電流=1.8e^-15、順向電壓增益=100、歐萊電壓=35V*
+* Analysis Requests *
+.DC Vce 0V 10V 10mV Ib 1uA 10uA 1uA
+*掃描直流電壓源Vce從0V到6V每20mV分析一次；
+掃描直流電流源Ib從1uA到10uA每1uA分析一次*
+* Output Requests *
+.PLOT DC I(Vce)
+*圖形輸出I對Vce的關係圖*
+.probe
+*顯示波形*
+.end
+*結束程式*
+(2) 請用SPICE模擬其電路，繪出NPN BJT的I-V特性曲線，並標出哪裡是飽和區、主動區、截止區。
+
+
+Exercise 4: 
+根據圖四之電路，當R=100 ?、輸入端為60Hz、12V(rms) 的交流訊號時，請用PSpice模擬輸出與輸入的電壓波，並做比較。
+   
+模擬:
+(1) 請用SPICE描述出此電路。
+* Time Domain Analysis of a Diode Rectifier*
+* Circuit Description *
+Vs 1 0 SIN( 0 16.97 60 0 0 0)
+*電壓源Vs宣告 設正端為1 負端為0 輸入交流電壓峰值16.97V 頻率60Hz*
+R1 2 0 100
+*電阻R1宣告 設正端為2 負端為0 電阻值為100Ω*
+* Diode Model Statement *
+D1 1 2 1mA_diode
+*二極體D1宣告 設正端為1 負端為2 二極體模型在0.7V時電流1mA*
+.model 1mA_diode D (Is=0.01pA n=1.0675 Bv=200V Ibv=1nA)
+*模型參數：飽和電流=0.01pA、理想因子=1.0675、逆向崩潰電壓=200V、逆向崩潰電流=1nA*
+*Analysis Requests *
+.TRAN 0 50m
+*時間掃描分析 從0s掃描50ms*
+.probe
+*顯示波形*
+.end
+*結束程式*
+(2) 請用SPICE模擬其電路，畫出其輸入與輸出的電壓波形圖(畫出兩個周期)，並做比較。
+
+
+            
+          圖一              圖二               圖三                   圖四
+
+
+Homework 1(a)(b)(c)(d): 
+請撰寫PSpice程式碼描述此電路，並決定此電路系統中電流ID與二極體電壓VD，其中VDD=5 V，R=1 kΩ假設二極體在電壓0.7 V時電流為1 mA，而電流改變10倍時，電壓改變0.1 V。
+
+手算分析: 請用使用(a)理想二極體模型、(b)定電壓降二極體模型、(c)片段線性二極體模型、(d)實際接面二極體模型(配合疊代分析法)，各別求得此電路系統中電流ID與二極體電壓VD，並把手算分析結果填入下表。
+
+模擬:
+(1) 請用SPICE描述出此電路。
+* Circuit Description *
+VDD 1 0 DC 5V
+*電壓源VDD宣告 設正端為1 負端為0 輸入直流電壓5V*
+R1 1 2 1k
+*電阻R1宣告 設正端為1 負端為2 電阻值為1kΩ*
+* Transistor Model Statement *
+D1 2 0 1mA_diode
+*二極體D1宣告 設正端為2 負端為0 二極體模型在0.7V時電流1mA*
+.model 1mA_diode D (Is=0.01pA n=1.0675) 
+*模型參數：飽和電流=0.01pA、理想因子=1.0675*
+*Analysis Requests *
+.TRAN 0 1
+*時間掃描分析 從0s掃描1s*
+* Output Requests *
+.probe
+*顯示波形*
+.end
+*結束程式*
+(2) 請用SPICE模擬其電路，求得此電路系統中電流ID與二極體電壓VD，並把SPICE模擬結果填入下表(手算分析填入四種模型答案，SPICE模擬只需填入一種模擬答案)。
+
+(3) 請比較利用理想二極體模型、定電壓降二極體模型、片段線性二極體模型、與實際接面二極體模型(疊代分析法)，這四種手算分析法與SPICE模擬分析所各別得到的電流ID與二極體電壓VD的誤差。完成下表。(  誤差(%)= ((SPICE模擬-手算分析)/ SPICE模擬)*100  )
+
+
+電流ID手算分析SPICE模擬誤差(%)理想二極體模型5mA4.2607mA-17.35定電壓降二極體模型4.3mA4.2607mA-0.92片段線性二極體模型4.264mA4.2607mA-0.08實際接面二極體模型4.2614mA4.2607mA-0.07
+二極體電壓VD手算分析SPICE模擬誤差(%)理想二極體模型0V0.739V100定電壓降二極體模型0.7V0.739V5.28片段線性二極體模型0.7352V0.739V0.51實際接面二極體模型0.7386V0.739V0.05
+Homework 2: 
+根據圖四之電路，當R=100 ?、輸入端為60Hz、12V(rms) 的交流訊號時 (a) 請求出二極體峰值電流與其PIV值並用PSpice畫出模擬圖來驗證 ; (b)請用PSpice模擬輸出與輸入的電壓比較。
+
+        圖四
+
+手算分析:  
+(1) 請用手繪出輸入與輸出的電壓波形圖(畫出兩個周期)。
+(2) 請求出二極體峰值電流ID與其PIV值?
+   
+模擬:
+(1) 請用SPICE描述出此電路。
+*Circuit Description*
+Vs 1 0 SIN(0 16.97 60 0 0 0)
+*電壓源Vs宣告 設正端為1 負端為0 輸入交流電壓峰值16.97V 頻率60Hz*
+R1 2 0 100
+*電阻R1宣告 設正端為2 負端為0 電阻值為100Ω*
+*Transistor Model Statement*
+D1 1 2 1mA_diode
+*二極體D1宣告 設正端為1 負端為2 二極體模型在0.7V時電流1mA*
+.model 1mA_diode D(Is=0.01pA n=1.0675)
+*模型參數：飽和電流=0.01pA、理想因子=1.0675*
+*Analysis Reqests*
+.Tran 0 0.5
+*時間掃描分析 從0s掃描0.5s*
+*Output Requests*
+.probe
+*顯示波形*
+.end
+*結束程式*
+(2) 請用SPICE模擬其電路，畫出其輸入與輸出的電壓波形圖(畫出兩個周期)，並做比較。
+
+(3) 請用SPICE模擬其電路，並在模擬出的波形圖上標出其二極體峰值電流ID與其PIV值。
+
+
+5. 實驗心得:
+每次接觸到新的軟體就要先好好熟悉一下，程式撰寫的方式又跟之前學的都很不一樣，一開始打的時候，要一邊查表一邊打，有時候Tran或是model前面會少打一個.，在run得時候就一直顯示錯誤，打到後面比較收悉之後，就覺得他很方便，不用像上學期一樣，用示波器看波形，有時候接錯了也很難查錯，但用這個就省下這些麻煩，只要元件的規格輸入正確，腳位編號編對，電路的所有數據就輕鬆出來了。

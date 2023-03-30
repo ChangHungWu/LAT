@@ -1,0 +1,268 @@
+111’2 Electronics Laboratory (II)
+Lab 2 : Metal-Oxide-Semiconductor Field-Effect Transistor, MOSFET
+                                  組別:    2    學號:  41075029H  姓名:  吳長紘   
+
+1. 實驗目的: 了解金氧半場效電晶體組成原理與其直流操作特性。
+
+2. 實驗原理: 金屬氧化物半導體場效電晶體，簡稱金氧半場效電晶體（Metal-Oxide-Semiconductor Field-Effect Transistor, MOSFET）是近代積體電子電路的核心元件，可廣泛應用在類比電路與數位電路中。他是一個四端的元件(汲極、閘極、源極、基極)，透過不同的直流偏壓，金氧半場效電晶體就會有著不同的特性，依據這些特性就可以將其應用在不同數位與類比電子電路中。
+
+3. 儀器與材料: 電腦、PSpice9.1版以上
+
+4. 實驗步驟:
+Example 1: 畫出DCIV Curve of a NMOSFET
+* Circuit Description *
+Vds 2 0 DC 10V
+*電壓源Vds宣告 設正端為2 負端為0 輸入直流電壓10V*
+Vgs 1 0 DC 4V
+*電壓源Vgs宣告 設正端為1 負端為0 輸入直流電壓4V*
+* MOSFET model description *
+M1 2 1 0 0 NMOSFET L=10u W=400u
+* MOSFET M1宣告 D G S B 電晶體模型樣式 匣極長?=10u 匣極寬?=400u*
+.model NMOSFET nmos (kp=20u Vto=1V lambda=0)
+*模型參數:製程互導參數=20u、零偏壓臨界電壓=1V、通道長度調變效應=0*
+* analysis requests *
+.DC Vds 0V 10V 10mV Vgs 1V 5V 1V
+　　*掃描直流電壓源Vds從0V到10V每10mV分析一次
+　　掃描直流電壓源Vgs從1V到5V每1V分析一次*
+* Output Requests *
+.probe
+*顯示波型*
+.end
+*結束程式*
+
+* Circuit Description *
+Vds 2 0 DC 6V
+*電壓源Vds宣告 設正端為2 負端為0 輸入直流電壓6V*
+Vgs 1 0 DC 4V
+*電壓源Vgs宣告 設正端為1 負端為0 輸入直流電壓4V*
+* MOSFET model description *
+M1 2 1 0 0 NMOSFET L=10u W=400u
+* MOSFET M1宣告 D G S B 電晶體模型樣式 匣極長?=10u 匣極寬?=400u*
+.model NMOSFET nmos (kp=20u Vto=1V lambda=0)
+*模型參數:製程互導參數=20u、零偏壓臨界電壓=1V、通道長度調變效應=0*
+* analysis requests *
+.DC Vgs 0V 12V 50mV
+　　*掃描直流電壓源Vgs從0V到50mV分析一次*
+* Output Requests *
+.PLOT DC I(Vgs) V(2)
+*圖形輸出I(Vgs)對V(2)的關係圖*
+.probe
+*顯示波型*
+.end
+*結束程式*
+
+Example 2: 畫出DCIV Curve of a NMOSFET with Channel-Length Modulation Effect
+* Circuit Description *
+Vds 2 0 DC 10V
+*電壓源Vds宣告 設正端為2 負端為0 輸入直流電壓10V*
+Vgs 1 0 DC 4V
+*電壓源Vgs宣告 設正端為1 負端為0 輸入直流電壓4V*
+* MOSFET model description *
+M1 2 1 0 0 NMOSFET L=10u W=400u
+* MOSFET M1宣告 D G S B 電晶體模型樣式 匣極長?=10u 匣極寬?=400u*
+.model NMOSFET nmos (kp=20u Vto=1V lambda=0.02)
+*模型參數:製程互導參數=20u、零偏壓臨界電壓=1V、通道長度調變效應=0.02*
+* analysis requests *
+.DC Vds 0V 10V 10mV Vgs 1V 5V 1V
+　　*掃描直流電壓源Vds從0V到10V每10mV分析一次
+　　掃描直流電壓源Vgs從1V到5V每1V分析一次*
+* Output Requests *
+.probe
+*顯示波型*
+.end
+*結束程式*
+
+Example 3:畫出DCIV Curve of a NMOSFET with Body Effect and Channel-Length Modulation Effect
+* Circuit Description *
+Vds 2 0 DC 10V
+*電壓源Vds宣告 設正端為2 負端為0 輸入直流電壓10V*
+Vgs 1 0 DC 4V
+*電壓源Vgs宣告 設正端為1 負端為0 輸入直流電壓4V*
+Vbs 3 0 DC -5V
+*電壓源Vbs宣告 設正端為3 負端為0 輸入直流電壓-5V*
+* MOSFET model description *
+M1 2 1 0 3 NMOSFET L=10u W=400u
+* MOSFET M1宣告 D G S B 電晶體模型樣式 匣極長?=10u 匣極寬?=400u*
+.model NMOSFET nmos (kp=20u Vto=1V lambda=0.02 gamma=0.5)
+*模型參數:互導參數=20u、零偏壓臨界電壓=1V、通道長度調變效應=0.02、基體效應係?=0.5*
+* analysis requests *
+.DC Vds 0V 10V 10mV Vgs 1V 5V 1V
+　　*掃描直流電壓源Vds從0V到10V每10mV分析一次
+　　掃描直流電壓源Vgs從1V到5V每1V分析一次*
+* Output Requests *
+.probe
+*顯示波型*
+.end
+*結束程式*
+
+Example 4: 畫出DCIV Curve of a PMOSFET
+* Circuit Description *
+Vsd 0 2 DC 10V
+*電壓源Vsd宣告 設正端為0 負端為2 輸入直流電壓10V*
+Vsg 0 1 DC 4V
+*電壓源Vsg宣告 設正端為0 負端為1 輸入直流電壓4V*
+* MOSFET model description *
+M1 2 1 0 0 PMOSFET L=10u W=400u
+* MOSFET M1宣告 D G S B 電晶體模型樣式 匣極長?=10u 匣極寬?=400u*
+.model PMOSFET pmos (kp=20u Vto=-1V lambda=0)
+*模型參數:製程互導參數=20u、零偏壓臨界電壓=1V、通道長度調變效應=0*
+* analysis requests *
+.DC Vsd 0V 10V 10mV Vsg 1V 5V 1V
+　　*掃描直流電壓源Vsd從0V到10V每10mV分析一次
+　　掃描直流電壓源Vsg從1V到5V每1V分析一次*
+* Output Requests *
+.probe
+*顯示波型*
+.end
+*結束程式*
+
+* Circuit Description *
+Vsd 0 2 DC 6V
+*電壓源Vsd宣告 設正端為0 負端為2 輸入直流電壓6V*
+Vsg 0 1 DC 4V
+*電壓源Vsg宣告 設正端為0 負端為1 輸入直流電壓4V*
+* MOSFET model description *
+M1 2 1 0 0 PMOSFET L=10u W=400u
+* MOSFET M1宣告 D G S B 電晶體模型樣式 匣極長?=10u 匣極寬?=400u*
+.model PMOSFET pmos (kp=20u Vto=-1V lambda=0)
+*模型參數:製程互導參數=20u、零偏壓臨界電壓=1V、通道長度調變效應=0*
+* analysis requests *
+.DC Vsg 0V 12V 50mV
+　　*掃描直流電壓源Vsg從0V到12V每50mV分析一次*
+* Output Requests *
+.PLOT DC I(Vsg) V(2)
+*圖形輸出I(Vsg)對V(2)的關係圖*
+.probe
+　　*顯示波型*
+.end
+　　*結束程式*
+
+Exercise 1: 畫出Turn ON Resistor of a NMOS Switch
+(1) 請用SPICE描述出圖一之NMOS開關。
+*circuit description*
+Vg 2 0 DC 5V
+*電壓源Vg宣告 設正端為2 負端為0 輸入直流電壓5V*
+Vb 3 0 DC -5V
+*電壓源Vb宣告 設正端為3 負端為0 輸入直流電壓-5V*
+Vi 1 0 DC 5V
+*電壓源Vgi告 設正端為1 負端為0 輸入直流電壓5V*
+* MOSFET model description *
+M1 1 2 0 3 NMOSFET L=10u W=400u
+* MOSFET M1宣告 D G S B 電晶體模型樣式 匣極長?=10u 匣極寬?=400u*
+.model NMOSFET nmos (kp=20u Vto=2V lambda=0.02 gamma=0.5)
+*模型參數:製程互導參數=20u、零偏壓臨界電壓=2V、通道長度調變效應=0.02、基體效應係?=0.5*
+* analysis requests *
+.DC Vi -5V 5V 10.001mV
+*掃描直流電壓源Vi從-5V到5V每10.001mV分析一次*
+* Output Requests *
+.probe
+*顯示波型*
+.end
+*結束程式*
+    (2) 為使NMOS導通，其閘極接至+5V，且避免基板導通，於是p型基體必須接至-5V。輸入
+       直流電壓Vi由-5V掃描至+5V，每10.001mV掃描一次。
+        NMOS元件描述部分為:
+        M1 D G S B NMOSFET L=10u W=400u
+        .model NMOSFET nmos (kp=20u Vto=2V lambda=0.02 gamma=0.5)
+    (3) 請模擬出NMOS開關之導通電阻隨輸入電壓之變化情形，此時輸入電壓與輸入電流之比
+       即可獲得導通電阻。
+
+Exercise 2: 畫出NMOS Switch 輸入輸出波形
+(1) 將Exercise 1 圖一輸出端之接地拆除，改為連接一100k?的負載電阻，並將輸入端輸入一
+正弦波(振幅5V、頻率100Hz)以觀察其訊號傳輸行為，如圖二。
+(2) 請用SPICE描述出圖二之開關電路。
+*circuit description*
+Vg 2 0 DC 5V
+*電壓源Vg宣告 設正端為2 負端為0 輸入直流電壓5V*
+Vb 3 0 DC -5V
+*電壓源Vb宣告 設正端為3 負端為0 輸入直流電壓5V*
+Vi 1 0 SIN(0 5V 100 0 0 0)
+*交流電壓源Vi宣告 設正端為1 負端為0 直流準位=0、振幅=5V、頻率100Hz、延遲=0、衰減=0、相位=0*
+R1 4 0 100K
+*電壓源R1宣告 設正端為4 負端為0 電阻值為100kΩ*
+* MOSFET model description *
+M1 1 2 4 3 NMOSFET L=10u W=400u
+* MOSFET M1宣告 D G S B 電晶體模型樣式 匣極長?=10u 匣極寬?=400u*
+.model NMOSFET nmos (kp=20u Vto=2V lambda=0.02 gamma=0.5)
+*模型參數:製程互導參數=20u、零偏壓臨界電壓=2V、通道長度調變效應=0.02、基體效應係?=0.5*
+* analysis requests *
+.TRAN 0 20m
+*時間掃描分析 從0s掃描到20ms*
+* Output Requests *
+.probe
+*顯示波型*
+.end
+*結束程式*
+　　(3) 請模擬出圖二之開關電路之輸入端訊號波型與輸出端訊號波形。
+
+
+  
+                 圖一                                    圖二
+
+Homework 1: 畫出Turn ON Resistor of a PMOS Switch
+(1) 請用SPICE描述出圖三之PMOS開關。
+*circuit description*
+Vg 1 0 DC -5V
+*電壓源Vg宣告 設正端為1 負端為0 輸入直流電壓-5V*
+Vb 3 0 DC 5V
+*電壓源Vb宣告 設正端為3 負端為0 輸入直流電壓5V*
+Vi 2 0 DC 5V
+*電壓源Vi宣告 設正端為2 負端為0 輸入直流電壓5V*
+* MOSFET model description *
+M1 0 1 2 3 PMOSFET L=10u W=400u
+* MOSFET M1宣告 D G S B 電晶體模型樣式 匣極長?=10u 匣極寬?=400u*
+.model PMOSFET pmos (kp=20u Vto=-2V lambda=0.02 gamma=0.5)
+*模型參數:製程互導參數=20u、零偏壓臨界電壓=-2V、通道長度調變效應=0.02、基體效應係?=0.5*
+* analysis requests *
+.DC Vi -5V 5V 10.001mV
+*掃描直流電壓源Vi從-5V到5V每10.001mV分析一次*
+* Output Requests *
+.probe
+*顯示波型*
+.end
+*結束程式*
+    (2) 為使PMOS導通，其閘極接至-5V，且避免基板導通，於是n型基體必須接至+5V。輸入
+       直流電壓Vi由-5V掃描至+5V，每10.001mV掃描一次。
+        PMOS元件描述部分為:
+        M1 D G S B PMOSFET L=10u W=400u
+        .model PMOSFET pmos (kp=20u Vto=-2V lambda=0.02 gamma=0.5)
+    (3) 請模擬出PMOS開關之導通電阻隨輸入電壓之變化情形，此時輸入電壓與輸入電流之比
+       即可獲得導通電阻。
+
+Homework 2: 畫出PMOS Switch 輸入輸出波形
+(1) 將Homework 1 圖四輸出端之接地拆除，改為連接一100k?的負載電阻，並將輸入端輸入一正弦波(振幅5V、頻率100Hz)以觀察其訊號傳輸行為，如圖四。
+(2) 請用SPICE描述出圖四之開關電路。
+*circuit description*
+Vg 1 0 DC -5V
+*電壓源Vg宣告 設正端為1 負端為0 輸入直流電壓-5V*
+Vb 3 0 DC 5V
+*電壓源Vb宣告 設正端為3 負端為0 輸入直流電壓5V*
+Vi 2 0 SIN(0 5V 100 0 0 0)
+*交流電壓源Vi宣告 設正端為2 負端為0 直流準位=0、振幅=5V、頻率100Hz、延遲=0、衰減=0、相位=0*
+R1 4 0 100K
+*電阻R1宣告 設正端為6 負端為0 電阻值100kΩ*
+* MOSFET model description *
+M1 4 1 2 3 PMOSFET L=10u W=400u
+* MOSFET M1宣告 D G S B 電晶體模型樣式 匣極長?=10u 匣極寬?=400u*
+.model PMOSFET pmos (kp=20u Vto=-2V lambda=0.02 gamma=0.5)
+*模型參數:製程互導參數=20u、零偏壓臨界電壓=-2V、通道長度調變效應=0.02、基體效應係?=0.5*
+* analysis requests *
+.TRAN 0 20m
+*時間掃描分析 從0s掃描到20ms*
+* Output Requests *
+.probe
+*顯示波型*
+.end
+*結束程式*
+(3) 請模擬出圖四之開關電路之輸入端訊號波型與輸出端訊號波形。
+
+  
+                    圖三                                圖四
+5. 問題討論:
+(1) 從Exercise 2實驗步驟(3)，可明顯看出用NMOS當開關時，輸出波形會有失真情形發生，請討論為什麼? 什麼原因造成此波形失真?
+NMOS工作在三極區時，會是非線性放大，不像是當作放大器使用的飽和區會完整輸出波型，但放大的倍率太大時，也是有可能會失真，而當開關時會有一部分在線性而另一部芬在非線性，所以就會有正半週截波失真的現象。
+(2) 從Homework 2實驗步驟(3)，可明顯看出用PMOS當開關時，輸出波形會有失真情形發生，請討論為什麼? 什麼原因造成此波形失真?
+PMOS工作在三極區時，會是非線性放大，不像是當作放大器使用的飽和區會完整輸出波型，但放大的倍率太大時，也是有可能會失真，而當開關時會有一部分在線性而另一部芬在非線性，所以就會有負半週截波失真的現象。
+
+6. 實驗心得:
+電子學學了那麼久，都一直在學的是電晶體的放大，而當開關的情況也只是簡單提一下，不會深入去討論，而在老師上課時就講解了很多當開關的情況，也在Pspice上模擬，也對Body這隻接腳有了更多的了解。而失真的部分我只有在高中時裁有聽老師講過，但因為考試不考也就沒有認真在聽，而現在就需要討論的時候，回憶就湧現上來了。
