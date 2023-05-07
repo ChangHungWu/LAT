@@ -21,8 +21,7 @@ const results = await analyticsClient.analyzeSentiment(documents, "zh-hant",{
     });
     
 const mainOpinions = results[0].sentences[0].opinions[0].target.text;
-並將text改成：
-text: `主題：${mainOpinions}\n情緒：${sentimentTextMap[sentimentText]}\n指數：${sentimentScore[highestSentiment]}`};
+`主題：${mainOpinions}\n情緒：${sentimentTextMap[sentimentText]}\n指數：${sentimentScore[highestSentiment]}`};
 
 #結果：
 
