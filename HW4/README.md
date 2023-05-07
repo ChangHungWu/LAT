@@ -5,11 +5,11 @@
 ## 第二步：
 將回傳的情緒翻譯成中文，並將情緒指數一併回傳<br>
 新增以下程式碼：<br>
-`const sentimentTextMap = {   \n
-        "positive": "正面",    \n
-        "negative": "負面",     \n
-        "neutral": "中立"     \n
-      };`
+`const sentimentTextMap = {
+        "positive": "正面",
+        "negative": "負面",
+        "neutral": "中立"
+      };`<br>
 並將text改成：<br>
 ``text:`情緒：${sentimentTextMap[sentimentText]}\n指數：${sentimentScore[highestSentiment]}`};``
 
@@ -21,7 +21,7 @@
     });`
     <br>
 ``const mainOpinions = results[0].sentences[0].opinions[0].target.text;``
-
+<br>
 並將text改成：<br>
 ```text:`主題：${mainOpinions}\n情緒：${sentimentTextMap[sentimentText]}\n指數：${sentimentScore[highestSentiment]}`}```
 
