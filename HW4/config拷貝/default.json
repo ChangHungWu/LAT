@@ -1,0 +1,6 @@
+{
+    "ENDPOINT":"https://suckmydidi.cognitiveservices.azure.com/",
+    "TEXT_ANALYTICS_API_KEY":"6eee34aed71c495ea5b0d54f92a08450",
+    "CHANNEL_ACCESS_TOKEN":"atUZIuv9velY3/48rTMvvcw7iw+xGPByqGbyJP7nPSeeccOuYB05w/Dfrc9DFvMa6DseKgbfgGIhdpA8Va8abX1GGu9Vzf+z7C9XYM704cqS24E6LF08AnBcfwIZk9Y+cr6PA/6gh4qw7osNpBCzoAdB04t89/1O/w1cDnyilFU=",
+    "CHANNEL_SECRET":"e33bc757dc1881accd8400c642559771"
+}
