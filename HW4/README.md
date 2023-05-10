@@ -20,8 +20,12 @@
         includeOpinionMining:true
     });`
     <br>
-``const mainOpinions = results[0].sentences[0].opinions[0].target.text;``
+``let mainOpinions = results[0].sentences[0]?.opinions[0]?.target?.text;``
 <br>
+但有可能無法判斷主題，因此要將主題輸出undefined改成沒有主題哈哈：<br>
+``if (mainOpinions === undefined) {
+        mainOpinions = "沒有主題啦哈哈";
+    }``<br>
 並將text改成：<br>
 ```text:`主題：${mainOpinions}\n情緒：${sentimentTextMap[sentimentText]}\n指數：${sentimentScore[highestSentiment]}`}```
 
