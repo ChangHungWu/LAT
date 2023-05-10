@@ -63,15 +63,18 @@ async function MS_TextSentimentAnalysis(thisEvent){
 
     const sentimentScore = results[0].confidenceScores[results[0].sentiment];
     const sentimentText = results[0].sentiment;
-    const mainOpinions = results[0].sentences[0].opinions[0].target.text;
-
+    let mainOpinions = results[0].sentences[0]?.opinions[0]?.target?.text;
+    
+    if (mainOpinions === undefined) {
+        mainOpinions = "沒有主題啦哈哈";
+    }
+    
     const sentimentTextMap = {
         "positive": "正面",
         "negative": "負面",
         "neutral": "中立"
       };
 
-    const highestSentiment = Object.keys(sentimentScore).reduce((a, b) => sentimentScore[a] > sentimentScore[b] ? a : b);
 
     const echo = {
         type: 'text',
