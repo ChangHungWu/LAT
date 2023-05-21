@@ -1,4 +1,4 @@
-##情境說明：
+## 情境說明：
 很多時候看到一個沒看過的LOGO，但又不知道怎麼查，這時候直接將所看到的LOGO拍下來直接查詢。<br>
 <br>
 如下圖所示⇣<br>
@@ -11,7 +11,7 @@
 ![Alt text](Serch_brands6.png)<br>
 
 -------
-##程式碼說明：
+## 程式碼說明：
 在參數中加入Brands⇣<br>
    ` var params = {
         "visualFeatures": "Categories,Description,Color,Brands",
