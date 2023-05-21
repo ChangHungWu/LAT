@@ -1,6 +1,7 @@
 'use strict';
 const line = require('@line/bot-sdk')
 const express = require('express'),
+ axios = require('axios'),
     configGet = require('config');
 const { TextAnalyticsClient, AzureKeyCredential} = require("@azure/ai-text-analytics");
 
@@ -40,13 +41,10 @@ function handleEvent(event){
     }
 
     MS_TextSentimentAnalysis(event)
-    .catch((err) =>{
-    console.error("Error:", err);
-    });
+        .catch((err) =>{
+            console.error("Error:", err);
+        });
 }
-
-
-
 
 async function MS_TextSentimentAnalysis(thisEvent){
     console.log("[MS_TextSentimentAnalysis] in");
@@ -60,25 +58,46 @@ async function MS_TextSentimentAnalysis(thisEvent){
     });
     console.log("[results] ", JSON.stringify(results));
 
+//Save to JSON Server
+let newData={
+    "sentiment": results[0].sentiment,
+    "confidenceScore": results[0].confidenceScores[results[0].sentiment],
+    "opinopnText": ""
+};
+if(results[0].sentences[0].opinions.length!=0){
+    newData.opinopnText = results[0].sentences[0].opinions[0].target.text;
+}
+let axios_add_data = { 
+    method:"post",
+    url:"https://hero-wu-json-server.azurewebsites.net/reviews",
+    headers:{
+        "content-type":"application/json"
+    },
+    data:newData
+};
+axios(axios_add_data)
+.then(function(response){
+    console.log(JSON.stringify(response.data));
+})
+.catch(function(){console.log("error");});
+
 
     const sentimentScore = results[0].confidenceScores[results[0].sentiment];
     const sentimentText = results[0].sentiment;
     let mainOpinions = results[0].sentences[0]?.opinions[0]?.target?.text;
-    
+
     if (mainOpinions === undefined) {
         mainOpinions = "沒有主題啦哈哈";
     }
-    
     const sentimentTextMap = {
         "positive": "正面",
         "negative": "負面",
         "neutral": "中立"
       };
 
-
     const echo = {
         type: 'text',
-        text: `主題：${mainOpinions}\n情緒：${sentimentTextMap[sentimentText]}\n指數：${sentimentScore[highestSentiment]}`
+        text: `主題：${mainOpinions}\n情緒：${sentimentTextMap[sentimentText]}\n指數：${sentimentScore}`
       };
       return client.replyMessage(thisEvent.replyToken, echo);
 
