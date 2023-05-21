@@ -14,3 +14,4 @@
 >> #### [作業2-製作圖表並問三個問題](https://github.com/ChangHungWu/LAT/blob/main/HW2/Hw2.ipynb)
 >> #### [作業3-利用AI讀取資料並統整](https://github.com/ChangHungWu/LAT/blob/main/HW3/HW3.ipynb)
 >> #### [作業4-利用node.js製作LINE聊天機器人](https://github.com/ChangHungWu/LAT/tree/main/HW4)
+>> #### [作業5-利用電腦視覺辨識影像](https://github.com/ChangHungWu/LAT/tree/main/HW5)
