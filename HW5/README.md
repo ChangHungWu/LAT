@@ -9,6 +9,9 @@
 ![Alt text](Serch_brands1.png)<br>
 或是判斷不出來<br>
 ![Alt text](Serch_brands6.png)<br>
+<br>
+而以下從本地上傳檔案⇣<br>
+![Alt text](Serch_brands7.png)<br>
 
 -------
 ## 程式碼說明：
